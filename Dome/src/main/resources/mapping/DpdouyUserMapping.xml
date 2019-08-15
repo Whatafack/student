@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.DpdouyUserDao">
+    <resultMap id="DpdouyUserEntity" type="com.example.demo.entity.DpdouyUserEntity">
+        <id column="user_id" property="userId"/>
+        <result column="user_name" property="userName"/>
+        <result column="user_sex" property="userSex"/>
+        <result column="user_age" property="userAge"/>
+        <result column="user_password" property="userPassword"/>
+        <result column="user_tel" property="userTel"/>
+    </resultMap>
+
+    <select id="login" resultType="int" parameterType="com.example.demo.entity.DpdouyUserEntity">
+      select count(1) from dpdouy_user where  user_name = #{userName} and user_password = #{userPasswrd}
+    </select>
+
+    <insert id="reg1ister" parameterType="com.example.demo.entity.DpdouyUserEntity">
+        insert into dpdouy_user(user_id,user_name,user_sex,user_age,user_password,user_tel)
+        value(#{userId},#{userName},#{userSex},#{userAge},#{userPassword},#{userTel})
+    </insert>
+    <insert id="upload" parameterType="com.example.demo.entity.DpdouyVideoEntity">
+        insert into dpdouy_video(video_id,video_name,video_url,user_id)
+        value(REPLACE(uuid(),'-',''),#{videoName},#{videoUrl},#{userId})
+</insert>
+
+</mapper>
